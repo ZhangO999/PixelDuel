@@ -43,3 +43,33 @@ public static class Controls
 #if ENABLE_INPUT_SYSTEM
     static Key[] New(Btn b)
     {
+        switch (b)
+        {
+            case Btn.P1Left:  return new[] { Key.A };
+            case Btn.P1Right: return new[] { Key.D };
+            case Btn.P1Up:    return new[] { Key.W };
+            case Btn.P1Down:  return new[] { Key.S };
+            case Btn.P1Jump:  return new[] { Key.LeftShift };
+            case Btn.P1Shoot: return new[] { Key.Space };
+            case Btn.P2Left:  return new[] { Key.LeftArrow };
+            case Btn.P2Right: return new[] { Key.RightArrow };
+            case Btn.P2Up:    return new[] { Key.UpArrow };
+            case Btn.P2Down:  return new[] { Key.DownArrow };
+            case Btn.P2Jump:  return new[] { Key.Slash };
+            case Btn.P2Shoot: return new[] { Key.RightShift, Key.Enter };
+            case Btn.Start:   return new[] { Key.Space, Key.Enter };
+            case Btn.Reset:   return new[] { Key.R };
+            default:          return new[] { Key.Escape };
+        }
+    }
+#endif
+
+    public static bool Held(Btn b)
+    {
+#if ENABLE_INPUT_SYSTEM
+        var kb = Keyboard.current;
+        if (kb != null)
+        {
+            foreach (var k in New(b))
+                if (kb[k].isPressed) return true;
+            return false;
