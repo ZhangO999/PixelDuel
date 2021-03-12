@@ -73,3 +73,30 @@ public static class Controls
             foreach (var k in New(b))
                 if (kb[k].isPressed) return true;
             return false;
+        }
+#endif
+#if ENABLE_LEGACY_INPUT_MANAGER
+        foreach (var k in Old(b))
+            if (Input.GetKey(k)) return true;
+#endif
+        return false;
+    }
+
+    public static bool Pressed(Btn b)
+    {
+#if ENABLE_INPUT_SYSTEM
+        var kb = Keyboard.current;
+        if (kb != null)
+        {
+            foreach (var k in New(b))
+                if (kb[k].wasPressedThisFrame) return true;
+            return false;
+        }
+#endif
+#if ENABLE_LEGACY_INPUT_MANAGER
+        foreach (var k in Old(b))
+            if (Input.GetKeyDown(k)) return true;
+#endif
+        return false;
+    }
+
