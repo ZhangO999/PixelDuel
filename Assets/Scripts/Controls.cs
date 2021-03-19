@@ -100,3 +100,26 @@ public static class Controls
         return false;
     }
 
+    /// Per-player view of the pad, so Player doesn't care which slot it is.
+    public struct Pad
+    {
+        public bool Left, Right, Up, Down, Jump, JumpDown, Shoot;
+        public int MoveX => (Right ? 1 : 0) - (Left ? 1 : 0);
+    }
+
+    public static Pad Read(int player)
+    {
+        int o = player == 0 ? 0 : 6;
+        Btn At(Btn first) => (Btn)((int)first + o);
+        return new Pad
+        {
+            Left     = Held(At(Btn.P1Left)),
+            Right    = Held(At(Btn.P1Right)),
+            Up       = Held(At(Btn.P1Up)),
+            Down     = Held(At(Btn.P1Down)),
+            Jump     = Held(At(Btn.P1Jump)),
+            JumpDown = Pressed(At(Btn.P1Jump)),
+            Shoot    = Held(At(Btn.P1Shoot)),
+        };
+    }
+}
