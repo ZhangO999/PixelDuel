@@ -56,3 +56,35 @@ public static class Level
         return false;
     }
 }
+
+/// An axis-aligned box that moves through the level one axis at a time. Speeds
+/// stay well under one tile per frame, so resolving a single overlap per axis
+/// is enough -- (rememvber want to avoid swept-collision logic).
+public class Body
+{
+    public Vector2 Pos;          // feet, horizontally centred
+    public Vector2 Vel;
+    public float HalfW = 0.34f;
+    public float Height = 1.0f;
+    public bool Grounded;
+    public bool DropThrough;     // set while deliberately falling through a ledge
+
+    const float E = 1e-4f;
+
+    public Rect Box => new Rect(Pos.x - HalfW, Pos.y, HalfW * 2f, Height);
+
+    /// Sub-stepped so nothing ever travels more than a third of a tile between
+    /// collision checks -- a full-speed fall would otherwise be able to skip
+    /// straight through a floor that is only one tile thick.
+    public const float MaxStep = 0.50f;
+
+    public void Move(float dt)
+    {
+        int steps = Mathf.Max(1, Mathf.CeilToInt(Vel.magnitude * dt / MaxStep));
+        float sub = dt / steps;
+        for (int i = 0; i < steps; i++)
+        {
+            MoveX(Vel.x * sub);
+            MoveY(Vel.y * sub);
+        }
+    }
