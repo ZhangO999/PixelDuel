@@ -88,3 +88,21 @@ public class Body
             MoveY(Vel.y * sub);
         }
     }
+
+    void MoveX(float dx)
+    {
+        if (dx == 0f) return;
+        Pos.x += dx;
+        var b = Box;
+        int rTop = Level.RowAt(b.yMax - E), rBot = Level.RowAt(b.yMin + E);
+        int cL = Level.ColAt(b.xMin + E), cR = Level.ColAt(b.xMax - E);
+        for (int r = rTop; r <= rBot; r++)
+            for (int c = cL; c <= cR; c++)
+                if (Level.Solid(c, r))
+                {
+                    Pos.x = dx > 0 ? c - HalfW : c + 1 + HalfW;
+                    Vel.x = 0f;
+                    return;
+                }
+    }
+
