@@ -106,3 +106,42 @@ public class Body
                 }
     }
 
+    void MoveY(float dy)
+    {
+        float prevBottom = Pos.y;
+        Pos.y += dy;
+        Grounded = false;
+        if (dy == 0f) return;
+
+        var b = Box;
+        int rTop = Level.RowAt(b.yMax - E), rBot = Level.RowAt(b.yMin + E);
+        int cL = Level.ColAt(b.xMin + E), cR = Level.ColAt(b.xMax - E);
+
+        for (int r = rTop; r <= rBot; r++)
+            for (int c = cL; c <= cR; c++)
+                if (Level.Solid(c, r))
+                {
+                    if (dy > 0) { Pos.y = Level.TileBottom(r) - Height; }
+                    else { Pos.y = Level.TileTop(r); Grounded = true; }
+                    Vel.y = 0f;
+                    return;
+                }
+
+        // Ledges only catch you on the way down, and only if you started above
+        // them -- that is what makes them one-way.
+        if (dy < 0 && !DropThrough)
+            for (int r = rTop; r <= rBot; r++)
+                for (int c = cL; c <= cR; c++)
+                    if (Level.OneWay(c, r))
+                    {
+                        float top = Level.TileTop(r);
+                        if (prevBottom >= top - 1e-3f && Pos.y < top)
+                        {
+                            Pos.y = top;
+                            Vel.y = 0f;
+                            Grounded = true;
+                            return;
+                        }
+                    }
+    }
+}
