@@ -11,3 +11,20 @@ public class Bullet
     public int Owner;
     public bool Live;
 
+    readonly GameObject go;
+    readonly Transform tr;
+
+    public Bullet(Sprite sprite)
+    {
+        go = new GameObject("Bullet");
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = 12;
+        tr = go.transform;
+        go.SetActive(false);
+    }
+
+    public void Fire(Vector2 pos, Vector2 dir, int owner)
+    {
+        Pos = pos;
+        Vel = dir.normalized * Speed;
