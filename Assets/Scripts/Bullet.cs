@@ -28,3 +28,17 @@ public class Bullet
     {
         Pos = pos;
         Vel = dir.normalized * Speed;
+        Owner = owner;
+        Live = true;
+        life = Life;
+        go.SetActive(true);
+        tr.position = pos;
+        tr.rotation = Quaternion.Euler(0f, 0f,
+            Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+    }
+
+    float life;
+
+    public Rect Box => new Rect(Pos.x - HalfSize, Pos.y - HalfSize,
+                                HalfSize * 2f, HalfSize * 2f);
+
