@@ -42,3 +42,24 @@ public class Bullet
     public Rect Box => new Rect(Pos.x - HalfSize, Pos.y - HalfSize,
                                 HalfSize * 2f, HalfSize * 2f);
 
+    /// Returns false once the bullet should be retired.
+    public bool Tick(float dt)
+    {
+        if (!Live) return false;
+        life -= dt;
+        if (life <= 0f) { Kill(); return false; }
+
+        // Same sub-stepping as Body: a bullet moves most of a tile per frame,
+        // so checking only the end point could shoot straight through a wall.
+        int steps = Mathf.Max(1, Mathf.CeilToInt(Speed * dt / Body.MaxStep));
+        float sub = dt / steps;
+        for (int i = 0; i < steps; i++)
+        {
+            Pos += Vel * sub;
+            if (Level.Solid(Level.ColAt(Pos.x), Level.RowAt(Pos.y)))
+            {
+                tr.position = Pos;
+                Kill();
+                return false;
+            }
+        }
