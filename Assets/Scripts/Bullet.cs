@@ -63,3 +63,13 @@ public class Bullet
                 return false;
             }
         }
+        tr.position = Pos;
+        return true;
+    }
+
+    public void Kill()
+    {
+        Live = false;
+        go.SetActive(false);
+    }
+}
