@@ -23,3 +23,36 @@ public class Player
 
     public const int MaxHealth = 100;
     public const int ShotDamage = 25;   // three hits
+
+    public readonly int Index;
+    public readonly Body Body = new Body();
+    public int Health, Score;
+    public bool Alive = true;
+    public int Facing = 1;
+
+    readonly Art.PlayerSprites art;
+    readonly Transform root;
+    readonly SpriteRenderer sr, gunSr;
+    readonly Game game;
+
+    float animTime, coyote, buffer, dropTimer, cooldown, respawn, invuln;
+    bool jumpHeldLast;
+    Controls.Pad pad;
+
+    static readonly Vector2 HandOffset = new Vector2(0.30f, 0.41f);
+
+    public Player(Game game, int index, Sprite gunSprite)
+    {
+        this.game = game;
+        Index = index;
+        art = Art.BuildPlayer(index);
+
+        root = new GameObject("Player" + (index + 1)).transform;
+        sr = root.gameObject.AddComponent<SpriteRenderer>();
+        sr.sprite = art.Idle;
+        sr.sortingOrder = 10;
+
+        var gun = new GameObject("Gun");
+        gun.transform.SetParent(root, false);
+        gunSr = gun.AddComponent<SpriteRenderer>();
+        gunSr.sprite = gunSprite;
