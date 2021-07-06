@@ -56,3 +56,35 @@ public class Player
         gun.transform.SetParent(root, false);
         gunSr = gun.AddComponent<SpriteRenderer>();
         gunSr.sprite = gunSprite;
+        gunSr.sortingOrder = 11;
+
+        Facing = index == 0 ? 1 : -1;
+        Respawn();
+    }
+
+    public void Respawn()
+    {
+        Body.Pos = Level.Spawn(Index);
+        Body.Vel = Vector2.zero;
+        Health = MaxHealth;
+        Alive = true;
+        invuln = InvulnTime;
+        cooldown = 0f;
+        Facing = Index == 0 ? 1 : -1;
+        root.gameObject.SetActive(true);
+    }
+
+    /// Where this player's shots go: up beats down, down only in the air, and
+    /// otherwise straight ahead.
+    public Vector2 Aim => new Vector2(Facing, 0f);
+
+    public Rect Hitbox => Body.Box;
+    public bool Vulnerable => Alive && invuln <= 0f;
+
+    public void Tick(float dt, bool acceptInput)
+    {
+        pad = acceptInput ? Controls.Read(Index) : default;
+
+        if (!Alive)
+        {
+            respawn -= dt;
