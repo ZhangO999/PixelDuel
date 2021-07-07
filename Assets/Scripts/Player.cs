@@ -88,3 +88,43 @@ public class Player
         if (!Alive)
         {
             respawn -= dt;
+            if (respawn <= 0f) Respawn();
+            return;
+        }
+
+        if (invuln > 0f)
+        {
+            invuln -= dt;
+            if (invuln <= 0f) sr.enabled = true;
+        }
+
+        Horizontal(dt);
+        Jump(dt);
+        Shoot(dt);
+
+        Body.Vel.y = Mathf.Max(Body.Vel.y - Gravity * dt, -MaxFall);
+        Body.DropThrough = dropTimer > 0f;
+        dropTimer -= dt;
+        Body.Move(dt);
+
+        Animate(dt);
+    }
+
+    void Horizontal(float dt)
+    {
+        int want = pad.MoveX;
+        float accel = Body.Grounded ? GroundAccel : AirAccel;
+        float drag = Body.Grounded ? GroundFriction : AirFriction;
+
+        if (want != 0)
+        {
+            Facing = want;
+            Body.Vel.x = Mathf.MoveTowards(Body.Vel.x, want * RunSpeed, accel * dt);
+        }
+        else
+        {
+            Body.Vel.x = Mathf.MoveTowards(Body.Vel.x, 0f, drag * dt);
+        }
+    }
+
+    void Jump(float dt)
