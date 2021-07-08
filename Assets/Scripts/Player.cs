@@ -128,3 +128,33 @@ public class Player
     }
 
     void Jump(float dt)
+    {
+        coyote = Body.Grounded ? CoyoteTime : coyote - dt;
+        buffer = pad.JumpDown ? JumpBuffer : buffer - dt;
+
+        // Down + jump on a ledge drops through it instead of jumping.
+        if (pad.JumpDown && pad.Down && Body.Grounded)
+        {
+            int r = Level.RowAt(Body.Pos.y - 0.1f);
+            int c = Level.ColAt(Body.Pos.x);
+            if (Level.OneWay(c, r))
+            {
+                dropTimer = DropTime;
+                Body.Pos.y -= 0.06f;
+                buffer = 0f;
+                jumpHeldLast = true;
+                return;
+            }
+        }
+
+        if (buffer > 0f && coyote > 0f)
+        {
+            Body.Vel.y = JumpVel;
+            Body.Grounded = false;
+            buffer = 0f;
+            coyote = 0f;
+        }
+
+        // Let go early and you get a shorter hop.
+        if (jumpHeldLast && !pad.Jump && Body.Vel.y > 0f)
+            Body.Vel.y *= JumpCut;
