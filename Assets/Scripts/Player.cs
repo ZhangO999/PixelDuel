@@ -158,3 +158,71 @@ public class Player
         // Let go early and you get a shorter hop.
         if (jumpHeldLast && !pad.Jump && Body.Vel.y > 0f)
             Body.Vel.y *= JumpCut;
+        jumpHeldLast = pad.Jump;
+    }
+
+    void Shoot(float dt)
+    {
+        cooldown -= dt;
+        if (!pad.Shoot || cooldown > 0f) return;
+        cooldown = ShootDelay;
+
+        Vector2 aim = Aim;
+        Vector2 hand = Body.Pos + new Vector2(HandOffset.x * Facing, HandOffset.y);
+        game.SpawnBullet(hand + aim * 0.45f, aim, Index);
+        Body.Vel.x -= aim.x * 1.0f;    // a nudge of recoil
+    }
+
+    public void Damage(int amount, Vector2 from)
+    {
+        if (!Vulnerable) return;
+        Health -= amount;
+        Body.Vel.x += Mathf.Sign(from.x == 0f ? Facing : from.x) * 4.5f;
+        Body.Vel.y += 3.5f;
+        if (Health <= 0) Die();
+    }
+
+    void Die()
+    {
+        Alive = false;
+        Health = 0;
+        respawn = RespawnDelay;
+        root.gameObject.SetActive(false);
+        game.Puff(Body.Pos + new Vector2(0f, 0.5f), Index);
+        game.ScoreFor(1 - Index);
+    }
+
+    void Animate(float dt)
+    {
+        Sprite frame;
+        if (!Body.Grounded)
+        {
+            frame = Body.Vel.y > 0f ? art.Jump : art.Fall;
+        }
+        else if (Mathf.Abs(Body.Vel.x) > 0.6f)
+        {
+            animTime += dt * Mathf.Abs(Body.Vel.x) / RunSpeed;
+            frame = art.Run[Mathf.FloorToInt(animTime * 11f) & 3];
+        }
+        else
+        {
+            animTime = 0f;
+            frame = art.Idle;
+        }
+        sr.sprite = frame;
+        sr.flipX = Facing < 0;
+
+        // Snap to the texture's pixel grid, or the art shimmers as it slides
+        // between screen pixels.
+        root.position = new Vector3(
+            Mathf.Round(Body.Pos.x * Art.PPU) / Art.PPU,
+            Mathf.Round(Body.Pos.y * Art.PPU) / Art.PPU, 0f);
+
+        Vector2 aim = Aim;
+        gunSr.flipX = Facing < 0;
+        gunSr.transform.localPosition =
+            new Vector3(HandOffset.x * Facing, HandOffset.y, 0f);
+        float angle = aim.y > 0.5f ? 90f * Facing : aim.y < -0.5f ? -90f * Facing : 0f;
+        gunSr.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+    }
+}
