@@ -26,3 +26,17 @@ public static class Art
 
     public static PlayerSprites BuildPlayer(int player)
     {
+        Color32 colour = player == 0
+            ? new Color32(210, 65, 60, 255)
+            : new Color32(60, 135, 210, 255);
+        var idle = Block(colour);
+        return new PlayerSprites
+        {
+            Idle = idle,
+            Jump = idle,
+            Fall = idle,
+            Run = new[] { idle, idle, idle, idle },
+        };
+    }
+
+    public static Sprite Gun() => Block(new Color32(150, 155, 165, 255), 8, 4);
