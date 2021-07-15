@@ -40,3 +40,10 @@ public static class Art
     }
 
     public static Sprite Gun() => Block(new Color32(150, 155, 165, 255), 8, 4);
+    public static Sprite Bullet() => Block(new Color32(255, 225, 120, 255), 3, 3);
+    public static Sprite Solid() => Block(new Color32(75, 85, 115, 255));
+    public static Sprite Grass() => Block(new Color32(75, 125, 75, 255));
+    public static Sprite Ledge() => Block(new Color32(135, 90, 50, 255));
+    public static Sprite Solid1x1() => Block(Color.white, 1, 1);
+}
+
