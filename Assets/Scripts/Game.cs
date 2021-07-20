@@ -23,3 +23,28 @@ public class Game : MonoBehaviour
         booted = true;
         new GameObject("PixelDuel").AddComponent<Game>();
     }
+
+    void Awake()
+    {
+        Application.targetFrameRate = 60;
+        SetUpCamera();
+        BuildArena();
+        bulletSprite = Art.Bullet();
+        var gun = Art.Gun();
+        players = new[] { new Player(this, 0, gun), new Player(this, 1, gun) };
+    }
+
+    void SetUpCamera()
+    {
+        Camera cam = Camera.main;
+        if (cam == null)
+        {
+            var cameraObject = new GameObject("Main Camera");
+            cameraObject.tag = "MainCamera";
+            cam = cameraObject.AddComponent<Camera>();
+        }
+        cam.orthographic = true;
+        cam.orthographicSize = Level.H * 0.5f + 0.5f;
+        cam.transform.position = new Vector3(Level.W * 0.5f, Level.H * 0.5f, -10f);
+        cam.backgroundColor = new Color32(25, 30, 50, 255);
+    }
