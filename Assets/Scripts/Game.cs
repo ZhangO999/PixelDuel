@@ -48,3 +48,28 @@ public class Game : MonoBehaviour
         cam.transform.position = new Vector3(Level.W * 0.5f, Level.H * 0.5f, -10f);
         cam.backgroundColor = new Color32(25, 30, 50, 255);
     }
+
+    void BuildArena()
+    {
+        Sprite stone = Art.Solid();
+        Sprite grass = Art.Grass();
+        Sprite wood = Art.Ledge();
+        var root = new GameObject("Arena").transform;
+
+        for (int row = 0; row < Level.H; row++)
+            for (int col = 0; col < Level.W; col++)
+            {
+                Sprite sprite = null;
+                if (Level.Solid(col, row))
+                    sprite = row > 0 && !Level.Solid(col, row - 1) ? grass : stone;
+                else if (Level.OneWay(col, row))
+                    sprite = wood;
+                if (sprite == null) continue;
+
+                var tile = new GameObject("Tile " + col + "," + row);
+                tile.transform.SetParent(root);
+                tile.transform.position = new Vector3(col, Level.TileBottom(row), 0f);
+                tile.AddComponent<SpriteRenderer>().sprite = sprite;
+            }
+    }
+
