@@ -73,3 +73,28 @@ public class Game : MonoBehaviour
             }
     }
 
+    void Update()
+    {
+        float dt = Time.deltaTime;
+
+        if (!playing && Controls.Pressed(Controls.Btn.Start))
+        {
+            playing = true;
+            message = "";
+            players[0].Score = 0;
+            players[0].Respawn();
+            players[1].Respawn();
+        }
+        if (playing && Controls.Pressed(Controls.Btn.Reset))
+        {
+            playing = false;
+            message = "PIXEL DUEL";
+        }
+
+        foreach (var player in players) player.Tick(dt, playing);
+        TickBullets(dt);
+        TickParticles(dt);
+    }
+
+    void TickBullets(float dt)
+    {
