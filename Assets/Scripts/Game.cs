@@ -98,3 +98,28 @@ public class Game : MonoBehaviour
 
     void TickBullets(float dt)
     {
+        foreach (var bullet in bullets)
+        {
+            if (!bullet.Live || !bullet.Tick(dt)) continue;
+            foreach (var player in players)
+            {
+                if (player.Index == bullet.Owner || !player.Vulnerable) continue;
+                if (!bullet.Box.Overlaps(player.Hitbox)) continue;
+                player.Damage(Player.ShotDamage, bullet.Vel);
+                bullet.Kill();
+                break;
+            }
+        }
+    }
+
+    public void SpawnBullet(Vector2 pos, Vector2 dir, int owner)
+    {
+        Bullet bullet = null;
+        foreach (var candidate in bullets)
+            if (!candidate.Live) { bullet = candidate; break; }
+        if (bullet == null)
+        {
+            bullet = new Bullet(bulletSprite);
+            bullets.Add(bullet);
+        }
+        bullet.Fire(pos, dir, owner);
