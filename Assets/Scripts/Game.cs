@@ -123,3 +123,28 @@ public class Game : MonoBehaviour
             bullets.Add(bullet);
         }
         bullet.Fire(pos, dir, owner);
+    }
+
+    public void ScoreFor(int player)
+    {
+        players[player].Score++;
+        if (players[player].Score < WinScore) return;
+        playing = false;
+        message = "PLAYER " + (player + 1) + " WINS";
+    }
+
+    public void Puff(Vector2 position, int player)
+    {
+        var particle = new PuffParticle
+        {
+            Position = position,
+            Velocity = new Vector2(player == 0 ? -2f : 2f, 4f),
+            Life = 0.5f,
+        };
+        particles.Add(particle);
+    }
+
+    void TickParticles(float dt)
+    {
+        for (int i = particles.Count - 1; i >= 0; i--)
+        {
