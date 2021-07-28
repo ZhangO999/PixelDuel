@@ -148,3 +148,23 @@ public class Game : MonoBehaviour
     {
         for (int i = particles.Count - 1; i >= 0; i--)
         {
+            var particle = particles[i];
+            particle.Life -= dt;
+            particle.Position += particle.Velocity * dt;
+            particle.Velocity.y -= 12f * dt;
+            if (particle.Life <= 0f) particles.RemoveAt(i);
+        }
+    }
+
+    void OnGUI()
+    {
+        if (players == null) return;
+        GUI.Label(new Rect(20, 15, 200, 30),
+            "P1 " + players[0].Health + "   " + players[0].Score);
+        GUI.Label(new Rect(Screen.width - 200, 15, 180, 30),
+            "P2 " + players[1].Health + "   " + players[1].Score);
+        if (message.Length > 0)
+            GUI.Label(new Rect(Screen.width / 2 - 80, Screen.height / 2, 200, 40), message);
+    }
+
+    class PuffParticle
