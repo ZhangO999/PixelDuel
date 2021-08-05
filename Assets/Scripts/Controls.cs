@@ -31,7 +31,7 @@ public static class Controls
             case Btn.P2Right: return new[] { KeyCode.RightArrow };
             case Btn.P2Up:    return new[] { KeyCode.UpArrow };
             case Btn.P2Down:  return new[] { KeyCode.DownArrow };
-            case Btn.P2Jump:  return new[] { KeyCode.Slash };
+            case Btn.P2Jump:  return new[] { KeyCode.Slash, KeyCode.RightControl };
             case Btn.P2Shoot: return new[] { KeyCode.RightShift, KeyCode.Return };
             case Btn.Start:   return new[] { KeyCode.Space, KeyCode.Return };
             case Btn.Reset:   return new[] { KeyCode.R };
@@ -55,7 +55,7 @@ public static class Controls
             case Btn.P2Right: return new[] { Key.RightArrow };
             case Btn.P2Up:    return new[] { Key.UpArrow };
             case Btn.P2Down:  return new[] { Key.DownArrow };
-            case Btn.P2Jump:  return new[] { Key.Slash };
+            case Btn.P2Jump:  return new[] { Key.Slash, Key.RightCtrl };
             case Btn.P2Shoot: return new[] { Key.RightShift, Key.Enter };
             case Btn.Start:   return new[] { Key.Space, Key.Enter };
             case Btn.Reset:   return new[] { Key.R };
