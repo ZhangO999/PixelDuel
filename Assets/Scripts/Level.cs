@@ -64,7 +64,7 @@ public class Body
 {
     public Vector2 Pos;          // feet, horizontally centred
     public Vector2 Vel;
-    public float HalfW = 0.34f;
+    public float HalfW = 0.28f;
     public float Height = 1.0f;
     public bool Grounded;
     public bool DropThrough;     // set while deliberately falling through a ledge
