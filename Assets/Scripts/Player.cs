@@ -76,7 +76,9 @@ public class Player
 
     /// Where this player's shots go: up beats down, down only in the air, and
     /// otherwise straight ahead.
-    public Vector2 Aim => new Vector2(Facing, 0f);
+    public Vector2 Aim =>
+        pad.Up ? Vector2.up :
+        new Vector2(Facing, 0f);
 
     public Rect Hitbox => Body.Box;
     public bool Vulnerable => Alive && invuln <= 0f;
