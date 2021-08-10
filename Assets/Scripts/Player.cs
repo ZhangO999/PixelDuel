@@ -78,6 +78,7 @@ public class Player
     /// otherwise straight ahead.
     public Vector2 Aim =>
         pad.Up ? Vector2.up :
+        (pad.Down && !Body.Grounded) ? Vector2.down :
         new Vector2(Facing, 0f);
 
     public Rect Hitbox => Body.Box;
