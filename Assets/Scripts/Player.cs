@@ -173,7 +173,7 @@ public class Player
         Vector2 aim = Aim;
         Vector2 hand = Body.Pos + new Vector2(HandOffset.x * Facing, HandOffset.y);
         game.SpawnBullet(hand + aim * 0.45f, aim, Index);
-        Body.Vel.x -= aim.x * 1.0f;    // a nudge of recoil
+        Body.Vel.x -= aim.x * 1.6f;    // a nudge of recoil
     }
 
     public void Damage(int amount, Vector2 from)
