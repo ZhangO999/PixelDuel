@@ -6,7 +6,7 @@ using UnityEngine;
 // responsibilities between objects.
 public class Game : MonoBehaviour
 {
-    public const int WinScore = 3;
+    public const int WinScore = 5;
 
     static bool booted;
     Player[] players;
