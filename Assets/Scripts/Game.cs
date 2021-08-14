@@ -81,7 +81,7 @@ public class Game : MonoBehaviour
         {
             playing = true;
             message = "";
-            players[0].Score = 0;
+            players[0].Score = players[1].Score = 0;
             players[0].Respawn();
             players[1].Respawn();
         }
