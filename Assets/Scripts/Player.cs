@@ -19,7 +19,7 @@ public class Player
     const float ShootDelay     = 0.30f;
     const float DropTime       = 0.16f;
     const float RespawnDelay   = 0.5f;
-    const float InvulnTime     = 0.8f;
+    const float InvulnTime     = 1.4f;
 
     public const int MaxHealth = 100;
     public const int ShotDamage = 25;   // three hits
