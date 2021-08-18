@@ -98,6 +98,7 @@ public class Player
         if (invuln > 0f)
         {
             invuln -= dt;
+            sr.enabled = ((int)(invuln * 20f) & 1) == 0;   // flicker while safe
             if (invuln <= 0f) sr.enabled = true;
         }
 
