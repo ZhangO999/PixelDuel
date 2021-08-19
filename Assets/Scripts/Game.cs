@@ -75,7 +75,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        float dt = Time.deltaTime;
+        float dt = Mathf.Min(Time.deltaTime, 1f / 30f);
 
         if (!playing && Controls.Pressed(Controls.Btn.Start))
         {
