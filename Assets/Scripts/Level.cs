@@ -76,7 +76,7 @@ public class Body
     /// Sub-stepped so nothing ever travels more than a third of a tile between
     /// collision checks -- a full-speed fall would otherwise be able to skip
     /// straight through a floor that is only one tile thick.
-    public const float MaxStep = 0.50f;
+    public const float MaxStep = 0.33f;
 
     public void Move(float dt)
     {
