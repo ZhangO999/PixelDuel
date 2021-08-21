@@ -18,7 +18,7 @@ public class Player
     const float JumpBuffer     = 0.10f;
     const float ShootDelay     = 0.30f;
     const float DropTime       = 0.16f;
-    const float RespawnDelay   = 0.5f;
+    const float RespawnDelay   = 1.0f;
     const float InvulnTime     = 1.4f;
 
     public const int MaxHealth = 100;
