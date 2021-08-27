@@ -8,7 +8,7 @@ public class Player
     const float Gravity        = 48f;
     const float MaxFall        = 24f;
     const float RunSpeed       = 6.5f;
-    const float GroundAccel    = 72f;
+    const float GroundAccel    = 90f;
     const float AirAccel       = 55f;
     const float GroundFriction = 75f;
     const float AirFriction    = 14f;
