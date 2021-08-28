@@ -9,7 +9,7 @@ public class Player
     const float MaxFall        = 24f;
     const float RunSpeed       = 6.5f;
     const float GroundAccel    = 90f;
-    const float AirAccel       = 55f;
+    const float AirAccel       = 40f;
     const float GroundFriction = 75f;
     const float AirFriction    = 14f;
     const float JumpVel        = 16f;   // clears a 3-unit tier with room to spare
