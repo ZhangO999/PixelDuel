@@ -15,7 +15,7 @@ public class Player
     const float JumpVel        = 16f;   // clears a 3-unit tier with room to spare
     const float JumpCut        = 0.45f; // released early -> chop the rise
     const float CoyoteTime     = 0.09f;
-    const float JumpBuffer     = 0.05f;
+    const float JumpBuffer     = 0.10f;
     const float ShootDelay     = 0.30f;
     const float DropTime       = 0.16f;
     const float RespawnDelay   = 1.0f;
