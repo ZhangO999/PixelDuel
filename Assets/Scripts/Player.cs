@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player
 {
     // ---- feel. These are the numbers worth fiddling with. ----
-    const float Gravity        = 48f;
+    const float Gravity        = 62f;
     const float MaxFall        = 24f;
     const float RunSpeed       = 8.5f;
     const float GroundAccel    = 90f;
