@@ -3,7 +3,7 @@ using UnityEngine;
 /// Bullets stop on solid walls but pass through the thin one-way ledges
 public class Bullet
 {
-    public const float Speed = 18f;
+    public const float Speed = 26f;
     const float Life = 2.5f;
     const float HalfSize = 0.09f;
 
