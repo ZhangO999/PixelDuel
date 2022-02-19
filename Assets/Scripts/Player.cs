@@ -22,7 +22,7 @@ public class Player
     const float InvulnTime     = 1.4f;
 
     public const int MaxHealth = 100;
-    public const int ShotDamage = 25;   // three hits
+    public const int ShotDamage = 34;   // three hits
 
     public readonly int Index;
     public readonly Body Body = new Body();
