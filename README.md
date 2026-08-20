@@ -10,10 +10,13 @@ projects I built end to end, and my first real attempt at using C# and
 object-oriented programming. I was still fairly new to programming, so the
 original version was pretty buggy.
 
-I came back to it in 2026 to practise some C# again. With the assistance of AI,
-I cleaned up parts of the game, replaced the UI and sprites, and updated the
-project to work with Unity 6. The basic idea and most of the gameplay still come
-from the original project.
+The project was largely lost and forgotten until I found it when organising
+the dotfiles on my laptop. 
+
+
+The current version has new UI and sprites, and has been made compatible with
+Unity 6 (with the assistance of AI). The basic idea and a good chunk of the
+gameplay logic still comes from the original project.
 
 ## Demo
 
